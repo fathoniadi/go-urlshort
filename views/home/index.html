@@ -1,0 +1,24 @@
+{% extends "../layout/base.html" %}
+ 
+{% block title  %}Dashboard Real Title{% endblock %}
+ 
+{% block body %}
+Hallo world Gorilla!
+
+<div>
+    {% for user in users %}
+        <span> {{ user }} </span>
+    {% endfor %}
+</div>
+
+<div>
+    {% for book in books %}
+        <span> {{ book.Title }} 
+        {% if book.Exist == true %}
+            Exist
+        {% endif %}
+        </span>
+    {% endfor %}
+</div>
+
+{% endblock %}
