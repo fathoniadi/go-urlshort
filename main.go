@@ -27,7 +27,7 @@ func main() {
 
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "static")
-	FileServer(app, "/public/static", http.Dir(filesDir))
+	FileServer(app, "/static", http.Dir(filesDir))
 
 	http.ListenAndServe(":3000", app)
 }
@@ -45,7 +45,14 @@ func FileServer(r chi.Router, path string, root http.FileSystem) {
 	}
 	path += "*"
 
-	r.Get(path, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fs.ServeHTTP(w, r)
+	r.Get(path, http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+
+		if info, err := os.Stat(req.URL.Path[1:]); err == nil && info.IsDir() {
+			res.WriteHeader(403)
+			res.Write([]byte("403 Forbidden Access"))
+			return
+		}
+
+		fs.ServeHTTP(res, req)
 	}))
 }
