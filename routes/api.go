@@ -17,7 +17,6 @@ type Book struct {
 
 func CustomNotFound(res http.ResponseWriter, req *http.Request) {
 
-	res.Header().Set("Content-Type", "application/json")
 	res.WriteHeader(404)
 
 	data := make(map[string]string)
@@ -30,19 +29,38 @@ func CustomNotFound(res http.ResponseWriter, req *http.Request) {
 	return
 }
 
+func ApiResponseType(next http.Handler) http.Handler {
+	fn := func(res http.ResponseWriter, req *http.Request) {
+		res.Header().Set("Content-Type", "application/json")
+		next.ServeHTTP(res, req)
+	}
+
+	return http.HandlerFunc(fn)
+}
+
 func Api() http.Handler {
 	api := chi.NewRouter()
 	api.Use(render.SetContentType(render.ContentTypeJSON))
+	api.Use(ApiResponseType)
 
 	api.Route("/v1", func(api_v1 chi.Router) {
-		var books []Book
-
-		books = []Book{Book{"Hello Word", []string{"Fathoni Adi Kurniawan"}}}
 
 		api_v1.Get("/ping", func(res http.ResponseWriter, req *http.Request) {
-			json_data, _ := json.Marshal(books)
-			res.Header().Set("Content-Type", "application/json")
+			data := make(map[string]string)
+			data["status"] = strconv.Itoa(200)
+			data["data"] = "pong"
+			json_data, _ := json.Marshal(data)
 			res.Write(json_data)
+		})
+
+		api_v1.Route("/books", func(api_v1_books chi.Router) {
+			api_v1_books.Get("/", func(res http.ResponseWriter, req *http.Request) {
+				var books []Book
+				books = []Book{Book{Title: "Hello Word", Author: []string{"Fathoni Adi Kurniawan"}},
+					Book{Title: "Sisop", Author: []string{"Thiar Hasbiya"}}}
+				json_data, _ := json.Marshal(books)
+				res.Write(json_data)
+			})
 		})
 	})
 
