@@ -53,14 +53,8 @@ func Api() http.Handler {
 			res.Write(json_data)
 		})
 
-		api_v1.Route("/books", func(api_v1_books chi.Router) {
-			api_v1_books.Get("/", func(res http.ResponseWriter, req *http.Request) {
-				var books []Book
-				books = []Book{Book{Title: "Hello Word", Author: []string{"Fathoni Adi Kurniawan"}},
-					Book{Title: "Sisop", Author: []string{"Thiar Hasbiya"}}}
-				json_data, _ := json.Marshal(books)
-				res.Write(json_data)
-			})
+		api_v1.Route("/url", func(api_v1_url chi.Router) {
+			api_v1_url.Get("/encode", controllers_v1.URLEncodeGet)
 		})
 	})
 
