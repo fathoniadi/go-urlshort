@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/fathoniadi/go-urlshort/routes"
+
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"net/http"
@@ -48,8 +49,8 @@ func FileServer(r chi.Router, path string, root http.FileSystem) {
 	r.Get(path, http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 
 		if info, err := os.Stat(req.URL.Path[1:]); err == nil && info.IsDir() {
-			res.WriteHeader(403)
-			res.Write([]byte("403 Forbidden Access"))
+			res.WriteHeader(404)
+			res.Write([]byte("404 Not Found"))
 			return
 		}
 
