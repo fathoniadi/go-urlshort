@@ -54,7 +54,7 @@ func Api() http.Handler {
 		})
 
 		api_v1.Route("/url", func(api_v1_url chi.Router) {
-			api_v1_url.Get("/encode", controllers_v1.URLEncodeGet)
+			api_v1_url.Post("/encode", controllers_v1.URLEncodeGet)
 		})
 	})
 

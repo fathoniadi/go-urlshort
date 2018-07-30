@@ -29,12 +29,12 @@
   version = "v1.0.1"
 
 [[projects]]
-  digest = "1:b749dfc1b2734006da71966102ca708c5575081590f4bbfa7bf6ba1979f04ee9"
-  name = "github.com/speps/go-hashids"
+  digest = "1:0a80463aafabdc9d78d451803b47db98fb453e212c8dde88cd54dfac4ac335e3"
+  name = "github.com/thedevsaddam/govalidator"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ad304c6ede07ca1f915c30a5510c45860aa165a7"
-  version = "v2.0.0"
+  revision = "95c9c9c4864288c985e32eb32025819dae495c66"
+  version = "v1.9.1"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -44,7 +44,7 @@
     "github.com/go-chi/chi",
     "github.com/go-chi/chi/middleware",
     "github.com/go-chi/render",
-    "github.com/speps/go-hashids",
+    "github.com/thedevsaddam/govalidator",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
