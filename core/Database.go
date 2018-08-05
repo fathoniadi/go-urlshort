@@ -19,6 +19,7 @@ func DBConnect() *mgo.Session {
 	}
 
 	db, err := mgo.DialWithInfo(mongoDBDialInfo)
+
 	if err != nil {
 		panic(err)
 	}

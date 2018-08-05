@@ -7,7 +7,6 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
 	"net/http"
-	"strconv"
 )
 
 type Book struct {
@@ -19,8 +18,8 @@ func CustomNotFound(res http.ResponseWriter, req *http.Request) {
 
 	res.WriteHeader(404)
 
-	data := make(map[string]string)
-	data["status"] = strconv.Itoa(404)
+	data := make(map[string]interface{})
+	data["status"] = 404
 	data["data"] = "Not Found"
 
 	json_data, _ := json.Marshal(data)
@@ -46,10 +45,13 @@ func Api() http.Handler {
 	api.Route("/v1", func(api_v1 chi.Router) {
 
 		api_v1.Get("/ping", func(res http.ResponseWriter, req *http.Request) {
-			data := make(map[string]string)
-			data["status"] = strconv.Itoa(200)
+
+			data := make(map[string]interface{})
+			data["status"] = 200
 			data["data"] = "pong"
+
 			json_data, _ := json.Marshal(data)
+			res.WriteHeader(200)
 			res.Write(json_data)
 		})
 

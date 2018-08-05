@@ -38,6 +38,7 @@ func URLDecodeGet(res http.ResponseWriter, req *http.Request) {
 func URLEncodePost(res http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
 	var url_request URLRequest
+	var alias string
 
 	rules := govalidator.MapData{
 		"mode": []string{"required"},
@@ -62,13 +63,14 @@ func URLEncodePost(res http.ResponseWriter, req *http.Request) {
 	switch req.FormValue("mode") {
 	case "random":
 	case "custom_link":
-		custom_link := req.FormValue("custom_link")
+		alias = req.FormValue("custom_link")
 
-		if len(custom_link) <= 4 {
+		if len(alias) <= 4 {
 			error_req := map[string]interface{}{"data": map[string]string{"custom_link": "Custom link must be greater than 4 character"}, "status": 400}
 			json.NewEncoder(res).Encode(error_req)
 			return
 		}
+
 	default:
 		error_req := map[string]interface{}{"data": map[string]string{"mode": "Mode not supported"}, "status": 400}
 		json.NewEncoder(res).Encode(error_req)
