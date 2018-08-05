@@ -3,6 +3,9 @@ package v1
 import (
 	//"github.com/speps/go-hashids"
 	"encoding/json"
+	"fmt"
+	"github.com/fathoniadi/go-urlshort/core"
+	"github.com/fathoniadi/go-urlshort/models"
 	"github.com/thedevsaddam/govalidator"
 	"net/http"
 )
@@ -15,6 +18,20 @@ type URLRequest struct {
 
 func URLDecodeGet(res http.ResponseWriter, req *http.Request) {
 	res.Write([]byte("welcome"))
+
+	db := core.DBConnect()
+
+	var configs []models.Config
+
+	if err := db.DB("go_urlshort").C("config").
+		Find(nil).Limit(100).All(&configs); err != nil {
+		fmt.Println(err)
+
+		return
+	}
+
+	fmt.Println(configs)
+
 	return
 }
 
