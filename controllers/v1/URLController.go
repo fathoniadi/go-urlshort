@@ -35,7 +35,7 @@ func URLDecodeGet(res http.ResponseWriter, req *http.Request) {
 	return
 }
 
-func URLEncodeGet(res http.ResponseWriter, req *http.Request) {
+func URLEncodePost(res http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
 	var url_request URLRequest
 

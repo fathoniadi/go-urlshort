@@ -29,6 +29,14 @@
   version = "v1.0.1"
 
 [[projects]]
+  digest = "1:70e697d67ccaec45e16bac3a32380ebcd9e7e071079c60d0171d42cf1cf9748a"
+  name = "github.com/joho/godotenv"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "a79fa1e548e2c689c241d10173efd51e5d689d5b"
+  version = "v1.2.0"
+
+[[projects]]
   digest = "1:0a80463aafabdc9d78d451803b47db98fb453e212c8dde88cd54dfac4ac335e3"
   name = "github.com/thedevsaddam/govalidator"
   packages = ["."]
@@ -58,6 +66,7 @@
     "github.com/go-chi/chi",
     "github.com/go-chi/chi/middleware",
     "github.com/go-chi/render",
+    "github.com/joho/godotenv",
     "github.com/thedevsaddam/govalidator",
     "gopkg.in/mgo.v2",
     "gopkg.in/mgo.v2/bson",
